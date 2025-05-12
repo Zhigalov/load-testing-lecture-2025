@@ -5,6 +5,7 @@
 #include <userver/testsuite/testsuite_support.hpp>
 #include <userver/utils/daemon_run.hpp>
 
+#include "create/post.hpp"
 #include "hello.hpp"
 
 int main(int argc, char* argv[]) {
@@ -15,6 +16,8 @@ int main(int argc, char* argv[]) {
                             .Append<userver::server::handlers::TestsControl>();
 
   clck::AppendHello(component_list);
+
+  component_list.Append<clck::HandlerCreateUrl>();
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

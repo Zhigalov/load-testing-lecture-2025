@@ -49,6 +49,10 @@ components_manager:
             task_processor: main-task-processor
             throttling_enabled: false
             url_trailing_slash: strict-match
+        handler-create-url:
+            path: /v1/create
+            method: POST
+            task_processor: main-task-processor
 
         handler-hello:                    # Finally! Our handler.
             path: /v1/hello               # Registering handler by URL '/v1/hello'.

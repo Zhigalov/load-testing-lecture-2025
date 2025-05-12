@@ -37,3 +37,9 @@ async def test_db_initial_data(service_client):
     )
     assert response.status == 200
     assert response.text == 'Hi again, user-from-initial_data.sql!\n'
+
+
+async def test_create_url(service_client):
+    response = await service_client.post('/v1/create')
+    assert response.status == 200
+    assert response.text == 'Ok'

@@ -14,8 +14,7 @@ void HelloBenchmark(benchmark::State& state) {
 
     for (auto _ : state) {
       const auto name = kNames[i++ % std::size(kNames)];
-      auto result = clck::SayHelloTo(
-          name, clck::UserType::kFirstTime);
+      auto result = clck::SayHelloTo(name, clck::UserType::kFirstTime);
       benchmark::DoNotOptimize(result);
     }
   });
