@@ -40,6 +40,8 @@ async def test_db_initial_data(service_client):
 
 
 async def test_create_url(service_client):
-    response = await service_client.post('/v1/create')
+    response = await service_client.post('/v1/create', json={
+        'url': 'https://dostavka.yandex.ru/',
+    })
     assert response.status == 200
-    assert response.text == 'Ok'
+    assert response.json() == {'short_url': 'Ok'}

@@ -5,15 +5,19 @@ namespace clck {
 HandlerCreateUrl::HandlerCreateUrl(
     const userver::components::ComponentConfig& config,
     const userver::components::ComponentContext& context)
-    : HttpHandlerBase(config, context),
+    : HttpHandlerJsonBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
               .GetCluster()) {}
 
-std::string HandlerCreateUrl::HandleRequestThrow(
+userver::formats::json::Value HandlerCreateUrl::HandleRequestJsonThrow(
     const userver::server::http::HttpRequest&,
+    const userver::formats::json::Value&,
     userver::server::request::RequestContext&) const {
-  return "Ok";
+  userver::formats::json::ValueBuilder result;
+  result["short_url"] = "Ok";
+
+  return result.ExtractValue();
 }
 
 }  // namespace clck
