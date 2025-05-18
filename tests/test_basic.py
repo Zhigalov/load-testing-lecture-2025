@@ -44,4 +44,4 @@ async def test_create_url(service_client):
         'url': 'https://dostavka.yandex.ru/',
     })
     assert response.status == 200
-    assert response.json() == {'short_url': 'Ok'}
+    assert response.json() == {'short_url': 'http://clck.ru/Xp3k'}
