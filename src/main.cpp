@@ -6,6 +6,7 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "create/post.hpp"
+#include "fetch/get.hpp"
 #include "hello.hpp"
 
 int main(int argc, char* argv[]) {
@@ -13,11 +14,11 @@ int main(int argc, char* argv[]) {
                             .Append<userver::server::handlers::Ping>()
                             .Append<userver::components::TestsuiteSupport>()
                             .Append<userver::components::HttpClient>()
-                            .Append<userver::server::handlers::TestsControl>();
+                            .Append<userver::server::handlers::TestsControl>()
+                            .Append<clck::HandlerCreateUrl>()
+                            .Append<clck::HandlerFetchUrl>();
 
   clck::AppendHello(component_list);
-
-  component_list.Append<clck::HandlerCreateUrl>();
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

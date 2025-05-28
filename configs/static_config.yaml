@@ -53,6 +53,10 @@ components_manager:
             path: /v1/create
             method: POST
             task_processor: main-task-processor
+        handler-fetch-url:
+            path: /v1/fetch/{hash}/{version}
+            method: GET
+            task_processor: main-task-processor
 
         handler-hello:                    # Finally! Our handler.
             path: /v1/hello               # Registering handler by URL '/v1/hello'.

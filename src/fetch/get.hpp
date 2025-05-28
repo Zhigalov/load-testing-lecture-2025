@@ -8,17 +8,16 @@
 
 namespace clck {
 
-class HandlerCreateUrl final
-    : public userver::server::handlers::HttpHandlerJsonBase {
+class HandlerFetchUrl final
+    : public userver::server::handlers::HttpHandlerBase {
  public:
-  static constexpr std::string_view kName = "handler-create-url";
+  static constexpr std::string_view kName = "handler-fetch-url";
 
-  HandlerCreateUrl(const userver::components::ComponentConfig& config,
-                   const userver::components::ComponentContext& context);
+  HandlerFetchUrl(const userver::components::ComponentConfig& config,
+                  const userver::components::ComponentContext& context);
 
-  userver::formats::json::Value HandleRequestJsonThrow(
+  std::string HandleRequestThrow(
       const userver::server::http::HttpRequest&,
-      const userver::formats::json::Value&,
       userver::server::request::RequestContext&) const override;
 
  private:

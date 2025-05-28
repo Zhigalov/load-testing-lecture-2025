@@ -39,7 +39,7 @@ async def test_db_initial_data(service_client):
     assert response.text == 'Hi again, user-from-initial_data.sql!\n'
 
 
-async def test_create_url_success(service_client):
+async def test_url_success(service_client):
     # First call should create record, second call should do nothing
     for _ in range(2):
         response = await service_client.post('/v1/create', json={
@@ -52,9 +52,13 @@ async def test_create_url_success(service_client):
             'version': 1,
         }
 
+    response = await service_client.get('/v1/fetch/Xp3k/1')
+    assert response.status == 200
+    assert response.text == 'https://dostavka.yandex.ru/'
+
 
 async def test_create_url_with_collision(service_client):
-    for i in range(1,2):
+    for i in range(1, 2):
         response = await service_client.post('/v1/create', json={'url': f'collision{i}'})
         assert response.status == 200
         assert response.json() == {
@@ -62,3 +66,9 @@ async def test_create_url_with_collision(service_client):
             'hash': 'AAAA',
             'version': i,
         }
+
+
+async def test_url_not_found(service_client):
+    response = await service_client.get('/v1/fetch/unknown/1')
+    assert response.status == 404
+    assert response.text == 'Url not found'
