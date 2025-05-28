@@ -71,7 +71,7 @@ userver::formats::json::Value HandlerCreateUrl::HandleRequestJsonThrow(
 
   userver::formats::json::ValueBuilder result;
 
-  static const std::string kDomain{"http://clck.ru/"};
+  static const std::string kDomain{"http://158.160.81.197:8080/"};
   result["short_url"] = kDomain + hash + '/' + std::to_string(version);
   result["hash"] = hash;
   result["version"] = version;

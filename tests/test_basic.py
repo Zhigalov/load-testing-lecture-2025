@@ -47,12 +47,12 @@ async def test_url_success(service_client):
         })
         assert response.status == 200
         assert response.json() == {
-            'short_url': 'http://clck.ru/Xp3k/1',
+            'short_url': 'http://158.160.81.197:8080/Xp3k/1',
             'hash': 'Xp3k',
             'version': 1,
         }
 
-    response = await service_client.get('/v1/fetch/Xp3k/1')
+    response = await service_client.get('/Xp3k/1')
     assert response.status == 200
     assert response.text == 'https://dostavka.yandex.ru/'
 
@@ -62,13 +62,13 @@ async def test_create_url_with_collision(service_client):
         response = await service_client.post('/v1/create', json={'url': f'collision{i}'})
         assert response.status == 200
         assert response.json() == {
-            'short_url': f'http://clck.ru/AAAA/{i}',
+            'short_url': f'http://158.160.81.197:8080/AAAA/{i}',
             'hash': 'AAAA',
             'version': i,
         }
 
 
 async def test_url_not_found(service_client):
-    response = await service_client.get('/v1/fetch/unknown/1')
+    response = await service_client.get('/unknown/1')
     assert response.status == 404
     assert response.text == 'Url not found'

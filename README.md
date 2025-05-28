@@ -39,3 +39,45 @@ can also be `debug-custom`, `release-custom`.
 The original template is distributed under the [Apache-2.0 License](https://github.com/userver-framework/userver/blob/develop/LICENSE)
 and [CLA](https://github.com/userver-framework/userver/blob/develop/CONTRIBUTING.md). Services based on the template may change
 the license and CLA.
+
+## Run
+
+0. Run tests
+```bash
+make cmake-debug && make test-debug
+```
+
+1. Create top_secret.yamyamll file:
+```
+// cat ~/top_secret.yaml
+worker-threads: 4
+worker-fs-threads: 2
+logger-level: info
+is-testing: false
+server-port: 8080
+dbconnection: '<connection_string>'
+```
+
+2. Build release
+```bash
+make cmake-release && make build-release
+```
+
+3. Run server
+```bash
+./build-release/clck --config configs/static_config.yaml --config_vars ~/top_secret.yaml
+```
+
+4. Curl
+```bash
+curl http://158.160.81.197:8080/unknown/1 -v
+< HTTP/1.1 404 Not Found
+Url not found
+
+curl http://158.160.81.197:8080/v1/create -d '{"url": "https://dostavka.yandex.ru/"}' -v
+< HTTP/1.1 200 OK
+{"short_url":"http://158.160.81.197:8080/Xp3k/1","hash":"Xp3k","version":1}
+
+curl http://158.160.81.197:8080/Xp3k/1
+https://dostavka.yandex.ru/
+```

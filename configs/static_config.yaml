@@ -54,7 +54,7 @@ components_manager:
             method: POST
             task_processor: main-task-processor
         handler-fetch-url:
-            path: /v1/fetch/{hash}/{version}
+            path: /{hash}/{version}
             method: GET
             task_processor: main-task-processor
 
